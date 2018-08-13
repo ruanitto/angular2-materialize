@@ -28,7 +28,7 @@ declare var Materialize: any;
 // "sideNav" |
 // "modal";
 
-// 
+//
 
 export interface MaterializeAction {
     action: string;
@@ -100,7 +100,14 @@ export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, 
     public ngOnChanges(_unused?) {
         if (this.isBrowser) {
             if (this.isSelect()) {
-                setTimeout(() => this.performLocalElementUpdates(), 10);
+                const nativeElement = this._el.nativeElement;
+                const jQueryElement = $(nativeElement);
+
+                // run performLocalElementUpdates() only if dropdown closed
+                // otherwise the dropdown closes unexpected
+                if (!jQueryElement.attr("multiple") || jQueryElement.parent().find("input.active").length === 0) {
+                    setTimeout(() => this.performLocalElementUpdates(), 10);
+                }
             }
         }
     }
