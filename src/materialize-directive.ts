@@ -15,7 +15,7 @@ import { CustomEvent } from './custom-event-polyfill';
 import { isPlatformBrowser } from '@angular/common';
 
 declare var $: any;
-declare var Materialize: any;
+declare var M: any;
 
 // export type MaterializeOptions =
 // "collapsible" |
@@ -159,8 +159,8 @@ export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, 
 
     private performElementUpdates() {
         // it should have been created by now, but confirm anyway
-        if (Materialize && Materialize.updateTextFields) {
-            Materialize.updateTextFields();
+        if (M && M.updateTextFields) {
+            M.updateTextFields();
         }
 
         // handle select changes from the HTML
@@ -269,15 +269,15 @@ export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, 
                     }
                 } else {
                     // fallback to running this function on the global Materialize object
-                    if (Materialize[functionName]) {
+                    if (M[functionName]) {
                         if (params) {
                             if (params instanceof Array) {
-                                Materialize[functionName](...params);
+                                M[functionName](...params);
                             } else {
                                 throw new Error("Params has to be an array.");
                             }
                         } else {
-                            Materialize[functionName]();
+                            M[functionName]();
                         }
                     } else {
                         throw new Error("Couldn't find materialize function ''" + functionName + "' on element or the global Materialize object.");
