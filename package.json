@@ -1,5 +1,5 @@
 {
-  "name": "angular2-materialize",
+  "name": "@samber/angular2-materialize",
   "description": "Angular 2 support for Materialize CSS framework",
   "repository": {
     "type": "git",
