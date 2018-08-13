@@ -32,7 +32,7 @@ declare var M: any;
 
 export interface MaterializeAction {
     action: string;
-    params: [any];
+    params: any[];
 }
 
 @Directive({
@@ -40,7 +40,7 @@ export interface MaterializeAction {
 })
 export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, OnDestroy {
 
-    private _params: [any] = null;
+    private _params: any[] = null;
     private _functionName: string = null;
     private previousValue = null;
     private previousDisabled = false;
