@@ -3,7 +3,7 @@ import {Option} from "./option";
 import {MaterialInput} from "./input";
 import {MaterialSelect} from "./select";
 import {MaterializeDirective} from "angular2-materialize";
-import * as Materialize from "angular2-materialize";
+import * as M from "angular2-materialize";
 import "rxjs";
 import {Observable} from "rxjs/Observable";
 
@@ -86,11 +86,11 @@ export class ModelBindings {
     }
 
     onInputValChange(val){
-        Materialize.toast(`parent input: ${val}`, 500)
+        M.toast(`parent input: ${val}`, 500)
     }
 
     onSelectValChange(val){
-        Materialize.toast(`parent select: ${val}`, 2000)
+        M.toast(`parent select: ${val}`, 2000)
     }
 
     onCountryChange(e) {

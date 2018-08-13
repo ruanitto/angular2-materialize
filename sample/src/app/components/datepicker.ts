@@ -1,7 +1,7 @@
 import {Component, EventEmitter} from '@angular/core';
 import {MaterializeAction} from '../../../lib/materialize-directive';
 import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
-declare var Materialize: any;
+declare var M: any;
 
 @Component({
     selector: "datePicker",
@@ -19,18 +19,18 @@ declare var Materialize: any;
           <div class="col s6">
              <label for="birthtime">Birthtime {{birthTime}}</label>
              <input id="birthtime" name="birthtime" [(ngModel)]="birthTime"
-                    materialize="pickatime" 
+                    materialize="pickatime"
                     [materializeActions]="birthTimeActions"
                     [materializeParams]="[{twelvehour: false}]"
                     placeholder="00:00" class="validate" type="text">
           </div>
-          
+
     </div>
     <div class="row">
           <div class="col s6">
             <a class="waves-effect waves-light btn" (click)="openDatePicker()">Open Date Picker</a>
           </div>
-            
+
           <div class="col s3">
            <a class="waves-effect waves-light btn" (click)="setTime('01:15')">Set Time to 01:15</a>
           </div>
@@ -38,16 +38,16 @@ declare var Materialize: any;
            <a class="waves-effect waves-light btn" (click)="openTimePicker()">Open Time Picker</a>
           </div>
     </div>
-    
+
     <div class="row"></div>
     <div class="row"></div>
-    
+
     <div class="row"><h4>Form Binding</h4></div>
-    
+
     <form [formGroup]="form" materialize class="col s12">
         <div class="row">
            <div class="col s4">
-          
+
             <label for="birthdate2">Birthdate {{form.value.fromDate}}</label>
             <input id="birthdate2" name="birthdate2" formControlName="fromDate"
                    materialize="pickadate"

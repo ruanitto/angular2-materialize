@@ -1,15 +1,17 @@
 # Angular2 Materialize
 
-[![travis build](https://img.shields.io/travis/InfomediaLtd/angular2-materialize.svg?style=flat-square)](https://travis-ci.org/InfomediaLtd/angular2-materialize)
-[![version](https://img.shields.io/npm/v/angular2-materialize.svg?style=flat-square)](https://www.npmjs.com/package/angular2-materialize)
-[![downloads](https://img.shields.io/npm/dm/angular2-materialize.svg?style=flat-square)](https://www.npmjs.com/package/angular2-materialize)
-[![MIT Licence](https://img.shields.io/npm/l/angular2-materialize.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+**This repo is a fork from [InfomediaLtd/angular2-materialize](https://github.com/InfomediaLtd/angular2-materialize) that is not maintained on a regular basis.**
+
+[![travis build](https://img.shields.io/travis/samber/angular2-materialize.svg?style=flat-square)](https://travis-ci.org/samber/angular2-materialize)
+[![version](https://img.shields.io/npm/v/@samuelberthe/angular2-materialize.svg?style=flat-square)](https://www.npmjs.com/package/@samuelberthe/angular2-materialize)
+[![downloads](https://img.shields.io/npm/dm/@samuelberthe/angular2-materialize.svg?style=flat-square)](https://www.npmjs.com/package/@samuelberthe/angular2-materialize)
+[![MIT Licence](https://img.shields.io/npm/l/@samuelberthe/angular2-materialize.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 [![PRs Welcome](https://img.shields.io/badge/prs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-[![NPM](https://nodei.co/npm/angular2-materialize.png?downloads=true)](https://www.npmjs.com/package/angular2-materialize)
-[![NPM](https://nodei.co/npm-dl/angular2-materialize.png?height=2&months=12)](https://www.npmjs.com/package/angular2-materialize)
+[![NPM](https://nodei.co/npm/@samuelberthe/angular2-materialize.png?downloads=true)](https://www.npmjs.com/package/@samuelberthe/angular2-materialize)
+[![NPM](https://nodei.co/npm-dl/@samuelberthe/angular2-materialize.png?height=2&months=12)](https://www.npmjs.com/package/@samuelberthe/angular2-materialize)
 
 Angular 2 support for Materialize CSS framework [http://materializecss.com/](http://materializecss.com/)
 
@@ -70,14 +72,14 @@ Apply an empty [MaterializeDirective](https://github.com/InfomediaLtd/angular2-m
 </form>
 ```
 
-The [MaterializeDirective](https://github.com/InfomediaLtd/angular2-materialize/blob/master/src/materialize-directive.ts) attribute directive (**materialize**) accepts any MaterializeCSS initialization call to apply to the element. The list of supported functions are provided by MaterializeCSS. Examples: collapsible, modal, tooltip, dropdown, tabs, material_select, sideNav, etc.
+The [MaterializeDirective](https://github.com/@samuelberthe/angular2-materialize/blob/master/src/materialize-directive.ts) attribute directive (**materialize**) accepts any MaterializeCSS initialization call to apply to the element. The list of supported functions are provided by MaterializeCSS. Examples: collapsible, modal, tooltip, dropdown, tabs, material_select, sideNav, etc.
 
 For example, to apply tooltip:
 ```html
 <a materialize="tooltip" class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>
 ```
 
-The [Materialize](https://github.com/InfomediaLtd/angular2-materialize/blob/master/src/materialize.ts) attribute directive also allows specifying parameters to be passed to the function, but providing a **materializeParams** attribute returning an array of params. Use it with a function call or even by inlining the params in the HTML.
+The [Materialize](https://github.com/@samuelberthe/angular2-materialize/blob/master/src/materialize.ts) attribute directive also allows specifying parameters to be passed to the function, but providing a **materializeParams** attribute returning an array of params. Use it with a function call or even by inlining the params in the HTML.
 
 Another useful option is emitting actions on an element. You may want to do that for calling Materialize functions, like closing a modal dialog or triggering a toast. You can do that by setting the **materializeActions** attribute, which accepts an [EventEmitter](https://angular.io/docs/ts/latest/api/core/index/EventEmitter-class.html). The emitted events can either be a "string" type action (Materialize function call) or a structure with action and parameters:
 
@@ -214,4 +216,3 @@ Another thing you would need to confirm is being able to load web fonts properly
 Notice that the url-loader is required for this to work (npm install it).
 
 The following example project is a fork of the angular2-webpack-starter with the addition of angular2-materialize: [InfomediaLtd/angular2-webpack-starter](https://github.com/InfomediaLtd/angular2-webpack-starter)
-

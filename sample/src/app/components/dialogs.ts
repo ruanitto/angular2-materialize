@@ -42,8 +42,8 @@ import {Component,EventEmitter} from "@angular/core"
       <br/><br/>
 
       <!-- toast -->
-      <a class="btn" onclick="Materialize.toast('I am a toast', 4000)">Toast 1!</a>
-      <a class="btn" (click)="triggerToast()" materialize [materializeParams]="['I am also a toast',4000]" [materializeActions]="globalActions">Toast 2!</a>
+      <a class="btn" onclick="M.toast('I am a toast', 4000)">Toast 1!</a>
+<a class="btn" (click)="triggerToast()" materialize [materializeParams]="['I am also a toast',4000]" [materializeActions]="globalActions">Toast 2!</a>
     `
 })
 export class Dialogs {

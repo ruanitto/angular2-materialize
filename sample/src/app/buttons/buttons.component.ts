@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import {MaterializeAction} from "angular2-materialize"
 
-declare var Materialize:any;
+declare var M:any;
 
 @Component({
   selector: 'app-buttons',
@@ -23,7 +23,7 @@ export class ButtonsComponent implements OnInit {
   }
 
   updateTextFields() {
-    Materialize.updateTextFields();
+    M.updateTextFields();
     console.log("updateTextFields called");
   }
 
