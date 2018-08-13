@@ -216,4 +216,3 @@ Another thing you would need to confirm is being able to load web fonts properly
 Notice that the url-loader is required for this to work (npm install it).
 
 The following example project is a fork of the angular2-webpack-starter with the addition of angular2-materialize: [InfomediaLtd/angular2-webpack-starter](https://github.com/InfomediaLtd/angular2-webpack-starter)
-
