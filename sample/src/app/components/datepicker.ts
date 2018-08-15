@@ -1,6 +1,6 @@
-import {Component, EventEmitter} from '@angular/core';
-import {MaterializeAction} from '../../../lib/materialize-directive';
-import {FormBuilder, FormGroup, FormControl} from '@angular/forms';
+import { Component, EventEmitter } from '@angular/core';
+import { MaterializeAction } from '@samuelberthe/angular2-materialize';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 declare var M: any;
 
 @Component({
@@ -11,7 +11,7 @@ declare var M: any;
           <div class="col s6">
             <label for="birthdate">Birthdate {{birthDate}}</label>
             <input id="birthdate" name="birthdate" [(ngModel)]="birthDate"
-                   materialize="pickadate"
+                   materialize="Datepicker"
                    [materializeActions]="birthDateActions"
                    [materializeParams]="[{format: 'dd/mm/yyyy'}]"
                    type="text" />
@@ -19,38 +19,38 @@ declare var M: any;
           <div class="col s6">
              <label for="birthtime">Birthtime {{birthTime}}</label>
              <input id="birthtime" name="birthtime" [(ngModel)]="birthTime"
-                    materialize="pickatime"
-                    [materializeActions]="birthTimeActions"
-                    [materializeParams]="[{twelvehour: false}]"
-                    placeholder="00:00" class="validate" type="text">
-          </div>
+materialize="Timepicker"
+[materializeActions]="birthTimeActions"
+[materializeParams]="[{twelvehour: false}]"
+placeholder="00:00" class="validate" type="text">
+</div>
 
-    </div>
-    <div class="row">
-          <div class="col s6">
-            <a class="waves-effect waves-light btn" (click)="openDatePicker()">Open Date Picker</a>
-          </div>
+</div>
+<div class="row">
+<div class="col s6">
+<a class="waves-effect waves-light btn" (click)="openDatePicker()">Open Date Picker</a>
+</div>
 
-          <div class="col s3">
-           <a class="waves-effect waves-light btn" (click)="setTime('01:15')">Set Time to 01:15</a>
-          </div>
-          <div class="col s3">
-           <a class="waves-effect waves-light btn" (click)="openTimePicker()">Open Time Picker</a>
-          </div>
-    </div>
+<div class="col s3">
+<a class="waves-effect waves-light btn" (click)="setTime('01:15')">Set Time to 01:15</a>
+</div>
+<div class="col s3">
+<a class="waves-effect waves-light btn" (click)="openTimePicker()">Open Time Picker</a>
+</div>
+</div>
 
-    <div class="row"></div>
-    <div class="row"></div>
+<div class="row"></div>
+<div class="row"></div>
 
-    <div class="row"><h4>Form Binding</h4></div>
+<div class="row"><h4>Form Binding</h4></div>
 
-    <form [formGroup]="form" materialize class="col s12">
-        <div class="row">
-           <div class="col s4">
+<form [formGroup]="form" materialize class="col s12">
+<div class="row">
+<div class="col s4">
 
-            <label for="birthdate2">Birthdate {{form.value.fromDate}}</label>
-            <input id="birthdate2" name="birthdate2" formControlName="fromDate"
-                   materialize="pickadate"
+<label for="birthdate2">Birthdate {{form.value.fromDate}}</label>
+<input id="birthdate2" name="birthdate2" formControlName="fromDate"
+                   materialize="Datepicker"
                    [materializeParams]="[{format: 'dd/mm/yyyy'}]"
                    type="text" />
           </div>
@@ -59,7 +59,7 @@ declare var M: any;
            <div class="col s4">
             <label for="birthtime2">Birthtime {{form.value.fromTime}}</label>
             <input id="birthtime2" name="birthtime2" formControlName="fromTime"
-                   materialize="pickatime"
+                   materialize="Timepicker"
                    [materializeParams]="[{format: 'dd/mm/yyyy'}]"
                    type="text" />
           </div>
@@ -68,11 +68,11 @@ declare var M: any;
         `
 })
 export class DatePicker {
-    birthDate:string;
-    birthTime:string;
+    birthDate: string;
+    birthTime: string;
 
-    birthDateActions = new EventEmitter<string|MaterializeAction>();
-    birthTimeActions = new EventEmitter<string|MaterializeAction>();
+    birthDateActions = new EventEmitter<string | MaterializeAction>();
+    birthTimeActions = new EventEmitter<string | MaterializeAction>();
     form: FormGroup;
 
 
@@ -87,7 +87,7 @@ export class DatePicker {
 
     openDatePicker() {
         //actions are open or close
-        this.birthDateActions.emit({action: "pickadate", params: ["open"]});
+        this.birthDateActions.emit({ action: "open", params: [] });
     }
 
     setTime(time) {
@@ -96,6 +96,7 @@ export class DatePicker {
 
     openTimePicker() {
         //actions are show or hide
-        this.birthTimeActions.emit({action: "pickatime", params: ["show"]});
+        this.birthTimeActions.emit({ action: "open", params: [] });
+        this.birthTimeActions.emit({ action: "showView", params: ["minutes"] });
     }
 }

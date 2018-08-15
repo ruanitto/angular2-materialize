@@ -1,5 +1,5 @@
-import {MaterializeDirective, MaterializeAction} from "angular2-materialize";
-import {Component, EventEmitter} from "@angular/core"
+import { MaterializeDirective, MaterializeAction } from "@samuelberthe/angular2-materialize";
+import { Component, EventEmitter } from "@angular/core"
 
 @Component({
     selector: "collapsible",
@@ -7,8 +7,8 @@ import {Component, EventEmitter} from "@angular/core"
         <a class="waves-effect waves-light btn" (click)="openFirst()">Open First</a>
         <a class="waves-effect waves-light btn" (click)="closeFirst()">Close First</a>
         <br/><br/>
-        <ul materialize="collapsible" class="collapsible" data-collapsible="accordion" [materializeParams]="params" [materializeActions]="actions1">
-          <li>
+<ul materialize="Collapsible" class="collapsible" [materializeParams]="params" [materializeActions]="actions1">
+<li>
             <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
             <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
           </li>
@@ -22,8 +22,8 @@ import {Component, EventEmitter} from "@angular/core"
           </li>
         </ul>
         <br/><br/>
-        <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
-          <li *ngFor="let value of values">
+<ul materialize="Collapsible" class="collapsible popout">
+<li *ngFor="let value of values">
             <div class="collapsible-header">{{value}}</div>
             <div class="collapsible-body"><p>{{value}}</p></div>
           </li>
@@ -32,27 +32,28 @@ import {Component, EventEmitter} from "@angular/core"
 })
 export class Collapsible {
 
-    actions1 = new EventEmitter<string|MaterializeAction>();
+    actions1 = new EventEmitter<string | MaterializeAction>();
 
 
     params = [
-      {
-        onOpen: (el) => {
-          console.log("Collapsible open", el);
-        },
-        onClose: (el) => {
-          console.log("Collapsible close", el);
+        {
+            accordion: false,
+            onOpenStart: (el) => {
+                console.log("Collapsible open", el);
+            },
+            onCloseStart: (el) => {
+                console.log("Collapsible close", el);
+            }
         }
-      }
     ];
 
     values = ["First", "Second", "Third"];
 
     openFirst() {
-      this.actions1.emit({action:"collapsible",params:['open',0]});
+        this.actions1.emit({ action: "open", params: [0] });
     }
 
     closeFirst() {
-      this.actions1.emit({action:"collapsible",params:['close',0]});
+        this.actions1.emit({ action: "close", params: [0] });
     }
 }

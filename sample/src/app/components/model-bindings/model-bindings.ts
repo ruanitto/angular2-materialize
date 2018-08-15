@@ -1,15 +1,15 @@
-import {Component} from "@angular/core";
-import {Option} from "./option";
-import {MaterialInput} from "./input";
-import {MaterialSelect} from "./select";
-import {MaterializeDirective} from "angular2-materialize";
-import * as M from "angular2-materialize";
+import { Component } from "@angular/core";
+import { Option } from "./option";
+import { MaterialInput } from "./input";
+import { MaterialSelect } from "./select";
+import { MaterializeDirective } from "@samuelberthe/angular2-materialize";
+import * as M from "@samuelberthe/angular2-materialize";
 import "rxjs";
-import {Observable} from "rxjs/Observable";
+import { Observable } from "rxjs/Observable";
 
 @Component({
-    selector: "actionsMain",
-    template: `
+  selector: "actionsMain",
+  template: `
       <form materialize class="col s12">
         <div class="row">
           <h4>Input model binding</h4>
@@ -33,8 +33,8 @@ import {Observable} from "rxjs/Observable";
         <br/>
         <div class="row">
           <div class="input-field">
-            <select [(ngModel)]="selectedCountries" name="countries" (ngModelChange)="onCountryChange($event)" materialize="material_select" [materializeSelectOptions]="countryOptions">
-              <option value="" disabled>Select option ..</option>
+<select [(ngModel)]="selectedCountries" name="countries" (ngModelChange)="onCountryChange($event)" materialize="FormSelect" [materializeSelectOptions]="countryOptions">
+<option value="" disabled>Select option ..</option>
               <option *ngFor="let country of countryOptions" [value]="country.value">{{country.name}}</option>
             </select>
             <label>Country selection ({{selectedCountries}})</label>
@@ -44,8 +44,8 @@ import {Observable} from "rxjs/Observable";
              <h4>Datepicker model binding</h4>
                 <div class="row">
                     <div class="input-field col s6">
-                            <input type="text" [(ngModel)]="datepicker" name="datepicker" materialize="pickadate" [materializeParams]="[{format:'dd/mm/yyyy'}]" />
-                    </div>
+<input type="text" [(ngModel)]="datepicker" name="datepicker" materialize="Datepicker" [materializeParams]="[{format:'dd/mm/yyyy'}]" />
+</div>
                 </div>
             <p>{{ datepicker }}</p>
         </div>
@@ -53,47 +53,47 @@ import {Observable} from "rxjs/Observable";
     `
 })
 export class ModelBindings {
-    selectOptions: Array<Option>;
-    selectedVal: string;
-    inputVal : string;
-    datepicker: string;
+  selectOptions: Array<Option>;
+  selectedVal: string;
+  inputVal: string;
+  datepicker: string;
 
-    countryOptions = [new Option("US", "United States"),new Option("GB", "Great Britain"),new Option("AU", "Australia")];
-    selectedCountries;
+  countryOptions = [new Option("US", "United States"), new Option("GB", "Great Britain"), new Option("AU", "Australia")];
+  selectedCountries;
 
-    constructor() {
+  constructor() {
 
-        this.datepicker = '01/02/2016';
+    this.datepicker = '01/02/2016';
 
-        // input
-        this.inputVal="Materialize is awesome!";
+    // input
+    this.inputVal = "Materialize is awesome!";
 
-        this.selectedVal = "1";
+    this.selectedVal = "1";
 
-        const options$ = Observable.create(observer => {
-          window.setTimeout(()=> {
-            observer.next([new Option("1", "Option 1"),new Option("2", "Option 2")]);
-          },100);
-        });
-        options$.subscribe(options => {
-          this.selectOptions = options;
-        });
+    const options$ = Observable.create(observer => {
+      window.setTimeout(() => {
+        observer.next([new Option("1", "Option 1"), new Option("2", "Option 2")]);
+      }, 100);
+    });
+    options$.subscribe(options => {
+      this.selectOptions = options;
+    });
 
-        window.setTimeout(()=> {
-          this.selectedCountries = "AU";
-        },1000);
+    window.setTimeout(() => {
+      this.selectedCountries = "AU";
+    }, 1000);
 
-    }
+  }
 
-    onInputValChange(val){
-        M.toast(`parent input: ${val}`, 500)
-    }
+  onInputValChange(val) {
+    M.toast({ html: `parent input: ${val}`, displayLength: 500 })
+  }
 
-    onSelectValChange(val){
-        M.toast(`parent select: ${val}`, 2000)
-    }
+  onSelectValChange(val) {
+    M.toast({ html: `parent select: ${val}`, displayLength: 2000 })
+  }
 
-    onCountryChange(e) {
-      console.log(e);
-    }
+  onCountryChange(e) {
+    console.log(e);
+  }
 }

@@ -1,12 +1,12 @@
-import {MaterializeDirective} from "angular2-materialize";
-import {Component,OnInit} from "@angular/core"
+import { MaterializeDirective } from "@samuelberthe/angular2-materialize";
+import { Component, OnInit } from "@angular/core"
 
 @Component({
   selector: "parallax",
   template: `
     <div class="parallax-container">
-      <div class="parallax" materialize="parallax"><img src="http://materializecss.com/images/parallax1.jpg"></div>
-    </div>
+<div class="parallax" materialize="Parallax"><img src="http://materializecss.com/images/parallax1.jpg"></div>
+</div>
     <div class="section white">
       <div class="row container">
         <h2 class="header">Parallax</h2>
@@ -14,8 +14,8 @@ import {Component,OnInit} from "@angular/core"
       </div>
     </div>
     <div class="parallax-container">
-      <div class="parallax" materialize="parallax"><img src="http://materializecss.com/images/parallax2.jpg"></div>
-    </div>
+<div class="parallax" materialize="Parallax"><img src="http://materializecss.com/images/parallax2.jpg"></div>
+</div>
   `
 })
 export class Parallax {

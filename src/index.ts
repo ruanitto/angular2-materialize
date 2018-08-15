@@ -24,6 +24,6 @@ if ("undefined" != typeof window) {
   }
 }
 
-export function toast(...args) {
-  M.toast(...args);
+export function toast(obj: object) {
+  M.toast(obj);
 }

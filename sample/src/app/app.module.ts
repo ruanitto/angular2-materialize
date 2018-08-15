@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule }  from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-import { MaterializeModule } from "angular2-materialize";
-import {MaterialInput,
-        Option,
-        MaterialSelect} from "./components/model-bindings/index"
+import { MaterializeModule } from "@samuelberthe/angular2-materialize";
+import {
+  MaterialInput,
+  Option,
+  MaterialSelect
+} from "./components/model-bindings/index"
 import { AppComponent } from './app.component';
 import {
   Carousel,
@@ -52,7 +54,7 @@ import { ButtonsComponent } from './buttons/buttons.component';
     routing
   ],
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy },appRoutingProviders
+    { provide: LocationStrategy, useClass: HashLocationStrategy }, appRoutingProviders
   ],
   bootstrap: [AppComponent]
 })
