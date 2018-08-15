@@ -156,7 +156,12 @@ export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, 
     }
 
     private performElementRemotion() {
-        this.performElementAction("destroy");
+        try {
+            this.performElementAction("destroy");
+        } catch (e: any) {
+            // can crash if not properly initialized
+            console.error(e);
+        }
     }
 
     private performElementAction(action: string, params: any[] = []) {
