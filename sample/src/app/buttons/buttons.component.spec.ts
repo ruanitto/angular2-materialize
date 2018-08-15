@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ButtonsComponent } from './buttons.component';
-import { MaterializeModule } from "angular2-materialize";
+import { MaterializeModule } from "@samuelberthe/angular2-materialize";
 
 describe('ButtonsComponent', () => {
   let component: ButtonsComponent;

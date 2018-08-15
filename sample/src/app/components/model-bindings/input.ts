@@ -1,6 +1,6 @@
-import {Component, EventEmitter} from "@angular/core";
-import {MaterializeDirective} from "angular2-materialize";
-import * as Materialize from "angular2-materialize";
+import { Component, EventEmitter } from "@angular/core";
+import { MaterializeDirective } from "@samuelberthe/angular2-materialize";
+import * as M from "@samuelberthe/angular2-materialize";
 
 @Component({
     selector: "materialInput",
@@ -19,9 +19,9 @@ export class MaterialInput {
     model: string;
     modelChange = new EventEmitter();
 
-   change(newValue) {
-      Materialize.toast(`child input: ${newValue}`, 500);
-      this.model = newValue;
-      this.modelChange.emit(newValue);
+    change(newValue) {
+        M.toast({ html: `child input: ${newValue}`, displayLength: 500 });
+        this.model = newValue;
+        this.modelChange.emit(newValue);
     }
 }

@@ -1,31 +1,20 @@
-import {MaterializeDirective} from "angular2-materialize";
-import {Component} from "@angular/core"
-import {Location} from '@angular/common';
+import { MaterializeDirective } from "@samuelberthe/angular2-materialize";
+import { Component } from "@angular/core"
+import { Location } from '@angular/common';
 
 @Component({
-    selector: "sideNav",
+    selector: "sidenav",
     styles: [`
-      nav {
-          height: 0px;
-      }
-      .side-nav {
-          width: 200px;
-      }
-      li.active {
-        background-color: #ee6e73
-      }
 
-    `],
+`],
     template: `
-      <nav>
-        <ul id="slide-out" class="side-nav fixed">
-          <li *ngFor="let routeName of routeNames" routerLinkActive="active"><a [routerLink]="[routeName]">{{routeName}}</a></li>
-        </ul>
-        <a materialize="sideNav" [materializeParams]="[{edge:'left'}]" href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="mdi-navigation-menu"></i></a>
-        <a materialize="sideNav" [materializeParams]="[{edge:'left'}]" href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="mdi-navigation-menu"></i></a>
-      </nav>
+<!--<nav></nav>-->
+<ul id="slide-out" class="sidenav sidenav-fixed" materialize="Sidenav" [materializeParams]="[{edge:'left'}]">
+<li *ngFor="let routeName of routeNames" routerLinkActive="active"><a [routerLink]="[routeName]">{{routeName}}</a></li>
+</ul>
+<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     `
 })
 export class SideNav {
-  routeNames = ["Buttons", "Carousel", "Chips", "Collapsible", "Dialogs", "Dropdown", "Forms", "Tabs", "DatePicker", "Parallax", "ModelBindings"];
+    routeNames = ["Buttons", "Carousel", "Chips", "Collapsible", "Dialogs", "Dropdown", "Forms", "Tabs", "DatePicker", "Parallax", "ModelBindings"];
 }

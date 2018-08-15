@@ -10,7 +10,7 @@ import { MaterializeDirective } from "./materialize-directive";
         CommonModule
     ],
     exports: [
-    	MaterializeDirective
+        MaterializeDirective
     ]
 })
 export class MaterializeModule {

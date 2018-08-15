@@ -2,6 +2,8 @@
 
 **This repo is a fork from [InfomediaLtd/angular2-materialize](https://github.com/InfomediaLtd/angular2-materialize) that is not maintained on a regular basis.**
 
+**Full compatible with Angular 6 and MaterializeCss 1.0.0-rc.2**
+
 [![travis build](https://img.shields.io/travis/samber/angular2-materialize.svg?style=flat-square)](https://travis-ci.org/samber/angular2-materialize)
 [![version](https://img.shields.io/npm/v/@samuelberthe/angular2-materialize.svg?style=flat-square)](https://www.npmjs.com/package/@samuelberthe/angular2-materialize)
 [![downloads](https://img.shields.io/npm/dm/@samuelberthe/angular2-materialize.svg?style=flat-square)](https://www.npmjs.com/package/@samuelberthe/angular2-materialize)
@@ -17,17 +19,17 @@ Angular 2 support for Materialize CSS framework [http://materializecss.com/](htt
 
 This library adds support for the Materialize CSS framework in Angular 2. It is needed to add the dynamic behavior of Materialize CSS that is using JavaScript rather than plain CSS.
 
-View demo here: [https://infomedialtd.github.io/angular2-materialize/](https://infomedialtd.github.io/angular2-materialize/)
+View demo here: [https://samber.github.io/angular2-materialize/](https://samber.github.io/angular2-materialize/)
 
 To use the library you need to import it once per project and then use its MaterializeDirective directive for binding it to any component that needs a dynamic behavior, like collapsible panels, tooltips, etc.
 
-## Using angular2-materialize
+## Using @samuelberthe/angular2-materialize
 
 Start by following the Angular CLI or webpack instructions below to add the required dependencies to your project.
 
 Add the MaterializeModule to your NgModule:
 ```js
-import { MaterializeModule } from "angular2-materialize";
+import { MaterializeModule } from "@samuelberthe/angular2-materialize";
 
 @NgModule({
   imports: [
@@ -43,7 +45,7 @@ In your component, use it for dynamic behavior. For example, for collapsible pan
 @Component({
     selector: "my-component",
     template: `
-        <ul materialize="collapsible" class="collapsible" data-collapsible="accordion">
+        <ul materialize="Collapsible" class="collapsible" data-collapsible="accordion">
           <li>
             <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
             <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
@@ -60,7 +62,7 @@ In your component, use it for dynamic behavior. For example, for collapsible pan
 
 ```
 
-Apply an empty [MaterializeDirective](https://github.com/InfomediaLtd/angular2-materialize/blob/master/src/materialize-directive.ts) attribute directive for top level components, like forms:
+Apply an empty [MaterializeDirective](https://github.com/samber/angular2-materialize/blob/master/src/materialize-directive.ts) attribute directive for top level components, like forms:
 ```html
 <form materialize class="col s12">
   <div class="row">
@@ -72,16 +74,16 @@ Apply an empty [MaterializeDirective](https://github.com/InfomediaLtd/angular2-m
 </form>
 ```
 
-The [MaterializeDirective](https://github.com/@samuelberthe/angular2-materialize/blob/master/src/materialize-directive.ts) attribute directive (**materialize**) accepts any MaterializeCSS initialization call to apply to the element. The list of supported functions are provided by MaterializeCSS. Examples: collapsible, modal, tooltip, dropdown, tabs, material_select, sideNav, etc.
+The [MaterializeDirective](https://github.com/samber/angular2-materialize/blob/master/src/materialize-directive.ts) attribute directive (**materialize**) accepts any MaterializeCSS initialization call to apply to the element. The list of supported functions are provided by MaterializeCSS. Examples: Collapsible, Chips, Modal, Tooltip, Dropdown, Tabs, FormSelect, Sidenav, FloatingActionButton, TapTarget, Carousel, Parallax, CharacterCounter, Autocomplete, Materialbox, ScrollSpy, etc.
 
 For example, to apply tooltip:
 ```html
-<a materialize="tooltip" class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>
+<a materialize="Tooltip" class="btn tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">Hover me!</a>
 ```
 
-The [Materialize](https://github.com/@samuelberthe/angular2-materialize/blob/master/src/materialize.ts) attribute directive also allows specifying parameters to be passed to the function, but providing a **materializeParams** attribute returning an array of params. Use it with a function call or even by inlining the params in the HTML.
+The [Materialize](https://github.com/samber/angular2-materialize/blob/master/src/materialize.ts) attribute directive also allows specifying parameters to be passed to the function, but providing a **materializeParams** attribute returning an array of params. Use it with a function call or even by inlining the params in the HTML.
 
-Another useful option is emitting actions on an element. You may want to do that for calling Materialize functions, like closing a modal dialog or triggering a toast. You can do that by setting the **materializeActions** attribute, which accepts an [EventEmitter](https://angular.io/docs/ts/latest/api/core/index/EventEmitter-class.html). The emitted events can either be a "string" type action (Materialize function call) or a structure with action and parameters:
+Another useful option is emitting actions on an element. You may want to do that for calling Materialize component methods, like closing a modal dialog or triggering a toast. You can do that by setting the **materializeActions** attribute, which accepts an [EventEmitter](https://angular.io/docs/ts/latest/api/core/index/EventEmitter-class.html). The emitted events can either be a "string" type action (Materialize method call) or a structure with action and parameters:
 
 The example below shows how you'd create a modal dialog and use the actions to open or close it.
 ```html
@@ -89,7 +91,7 @@ The example below shows how you'd create a modal dialog and use the actions to o
 <a class="waves-effect waves-light btn modal-trigger" (click)="openModal()">Modal</a>
 
 <!-- Modal Structure -->
-<div id="modal1" class="modal bottom-sheet" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+<div id="modal1" class="modal bottom-sheet" materialize="Modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
   <div class="modal-content">
     <h4>Modal Header</h4>
     <p>A bunch of text</p>
@@ -101,30 +103,30 @@ The example below shows how you'd create a modal dialog and use the actions to o
 </div>
 ```
 ```js
-  import {MaterializeAction} from 'angular2-materialize';
+  import {MaterializeAction} from '@samuelberthe/angular2-materialize';
   //...
   modalActions = new EventEmitter<string|MaterializeAction>();
   openModal() {
-    this.modalActions.emit({action:"modal",params:['open']});
+    this.modalActions.emit({action:"open",params:[]});
   }
   closeModal() {
-    this.modalActions.emit({action:"modal",params:['close']});
+    this.modalActions.emit({action:"close",params:[]});
   }
 ```
 
 For dynamic select elements apply the **materializeSelectOptions** directive to trigger element updates when the options list changes:
 ```html
-<select materialize="material_select" [materializeSelectOptions]="selectOptions">
+<select materialize="FormSelect" [materializeSelectOptions]="selectOptions">
   <option *ngFor="let option of selectOptions" [value]="option.value">{{option.name}}</option>
 </select>
 ```
 
-## Installing & configuring angular2-materialize in projects created with the Angular CLI
+## Installing & configuring @samuelberthe/angular2-materialize in projects created with the Angular CLI
 
-Install MaterializeCSS and angular2-materialize from npm
+Install MaterializeCSS and @samuelberthe/angular2-materialize from npm
 ```
 npm install materialize-css --save
-npm install angular2-materialize --save
+npm install @samuelberthe/angular2-materialize --save
 ```
 
 jQuery 2.2 and Hammer.JS are required
@@ -151,7 +153,7 @@ Edit the angular-cli.json :
 Add to the top of app.module.ts
 
 ```
-import { MaterializeModule } from 'angular2-materialize';
+import { MaterializeModule } from '@samuelberthe/angular2-materialize';
 
 ```
 
@@ -162,12 +164,12 @@ Add this line to header of index.html
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 ```
 
-## Installing and configuring angular2-materialize with webpack
+## Installing and configuring @samuelberthe/angular2-materialize with webpack
 
-Install MaterializeCSS and angular2-materialize from npm
+Install MaterializeCSS and @samuelberthe/angular2-materialize from npm
 ```sh
 npm install materialize-css --save
-npm install angular2-materialize --save
+npm install @samuelberthe/angular2-materialize --save
 ```
 
 MaterializeCSS required jQuery and HammerJS. Check the exact version materialize-css is compatible with:
@@ -201,10 +203,10 @@ module.exports = {
 };
 ```
 
-Import MaterializeCSS programatically, in the same place where you import angular2-materialize module (usually in your main module, or shared module):
+Import MaterializeCSS programatically, in the same place where you import @samuelberthe/angular2-materialize module (usually in your main module, or shared module):
 ```js
 import 'materialize-css';
-import { MaterializeModule } from 'angular2-materialize';
+import { MaterializeModule } from '@samuelberthe/angular2-materialize';
 ```
 
 #### Loading additional resources
@@ -215,4 +217,4 @@ Another thing you would need to confirm is being able to load web fonts properly
 ```
 Notice that the url-loader is required for this to work (npm install it).
 
-The following example project is a fork of the angular2-webpack-starter with the addition of angular2-materialize: [InfomediaLtd/angular2-webpack-starter](https://github.com/InfomediaLtd/angular2-webpack-starter)
+The following example project is a fork of the angular2-webpack-starter with the addition of @samuelberthe/angular2-materialize: [InfomediaLtd/angular2-webpack-starter](https://github.com/InfomediaLtd/angular2-webpack-starter)

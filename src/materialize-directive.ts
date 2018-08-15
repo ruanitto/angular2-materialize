@@ -18,17 +18,22 @@ declare var $: any;
 declare var M: any;
 
 // export type MaterializeOptions =
-// "collapsible" |
-// "dropdown" |
-// "materialbox" |
-// "tabs" |
-// "tooltip" |
-// "characterCounter" |
-// "material_select" |
-// "sideNav" |
-// "modal";
-
-//
+// "Collapsible" |
+// "Chips" |
+// "Autocomplete" |
+// "Dropdown" |
+// "Materialbox" |
+// "ScrollSpy" |
+// "Tabs" |
+// "Tooltip" |
+// "CharacterCounter" |
+// "FormSelect" |
+// "Sidenav" |
+// "TapTarget" |
+// "Carousel" |
+// "FloatingActionButton" |
+// "Parallax" |
+// "Modal";
 
 export interface MaterializeAction {
     action: string;
@@ -40,11 +45,12 @@ export interface MaterializeAction {
 })
 export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, OnDestroy {
 
-    private _params: any[] = null;
+    private _params: any[] = [];
     private _functionName: string = null;
     private previousValue = null;
     private previousDisabled = false;
     private _waitFunction: any = {};
+    private instance: any;
     private isBrowser: boolean = isPlatformBrowser(this.platformId);
 
     private changeListenerShouldBeAdded = true;
@@ -56,11 +62,19 @@ export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, 
     }
 
     @Input()
-    public set materializeParams(params: any) {
+    public set materialize(functionName: string) {
+        this._functionName = functionName;
         if (this.isBrowser) {
-            this._params = params;
-            this.performElementUpdates();
+            window.setTimeout(() => {
+                this.performElementUpdates();
+                this.performElementInit();
+            }, 1);
         }
+    }
+
+    @Input()
+    public set materializeParams(params: any) {
+        this._params = params;
     }
 
     @Input()
@@ -69,18 +83,13 @@ export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, 
             actions.subscribe((action: string | MaterializeAction) => {
                 window.setTimeout(() => {
                     if (typeof action === "string") {
-                        this.performLocalElementUpdates(action);
+                        this.performElementAction(action);
                     } else {
-                        this.performLocalElementUpdates(action.action, action.params);
+                        this.performElementAction(action.action, action.params);
                     }
                 }, 1);
             })
         }
-    }
-
-    @Input()
-    public set materialize(functionName: string) {
-        this._functionName = functionName;
     }
 
     // this is here to trigger change detection for select elements
@@ -103,10 +112,10 @@ export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, 
                 const nativeElement = this._el.nativeElement;
                 const jQueryElement = $(nativeElement);
 
-                // run performLocalElementUpdates() only if dropdown closed
+                // run performElementInit() only if dropdown closed
                 // otherwise the dropdown closes unexpected
                 if (!jQueryElement.attr("multiple") || jQueryElement.parent().find("input.active").length === 0) {
-                    setTimeout(() => this.performLocalElementUpdates(), 10);
+                    setTimeout(() => this.performElementInit(), 10);
                 }
             }
         }
@@ -134,7 +143,7 @@ export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, 
                     shouldUpdate = true;
                 }
                 if (shouldUpdate) {
-                    this.performLocalElementUpdates();
+                    this.performElementInit();
                 }
             } else if (this.isTextarea()) {
                 if (nativeElement.value != this.previousValue) {
@@ -147,14 +156,13 @@ export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, 
     }
 
     private performElementRemotion() {
-        if (this.isTooltip()) {
-            const nativeElement = this._el.nativeElement;
-            const jQueryElement = $(nativeElement);
-            const tooltipId = jQueryElement.attr('data-tooltip-id');
-            if (tooltipId) {
-                $('#' + tooltipId).remove();
-            }
-        }
+        this.performElementAction("destroy");
+    }
+
+    private performElementAction(action: string, params: any[] = []) {
+        const instance = this.getInstance();
+        if (!!instance && !!instance[action])
+            instance[action](...params);
     }
 
     private performElementUpdates() {
@@ -191,39 +199,11 @@ export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, 
             jQueryElement.on("change", e => nativeElement.dispatchEvent((<any>CustomEvent("input"))));
         }
 
-        if (this.isDatePicker()) {
+        if (this.isDatePicker() || this.isTimePicker()) {
             const nativeElement = this._el.nativeElement;
-            const jqueryPickerElement = $(nativeElement);
+            const jQueryElement = $(nativeElement);
 
-            const datePicker = jqueryPickerElement[this._functionName](...this._params);
-            const picker = datePicker.pickadate('picker');
-            setTimeout(() => {
-                if (this.ngModel) { // PR 292 - 1
-                    picker.set('select', this.ngModel);
-                } else {
-                    const value = jqueryPickerElement.val();
-                    if (value && value.length > 0) {
-                        picker.set('select', value);
-                    }
-                }
-                jqueryPickerElement.on('change', e => nativeElement.dispatchEvent((<any>CustomEvent("input"))));
-            });
-        }
-
-        if (this.isTimePicker()) {
-            const nativeElement = this._el.nativeElement;
-            const jqueryPickerElement = $(nativeElement);
-
-            const timePicker = jqueryPickerElement[this._functionName](...this._params);
-            const picker = timePicker.pickatime('picker');
-            setTimeout(() => {
-                if (this.ngModel) {
-                    picker.val(this.ngModel);
-                } else {
-                    picker.val(jqueryPickerElement.val());
-                }
-                jqueryPickerElement.on('change', e => nativeElement.dispatchEvent((<any>CustomEvent("input"))));
-            });
+            jQueryElement.on("change", e => nativeElement.dispatchEvent((<any>CustomEvent("input"))));
         }
 
         if (this.isChips()) {
@@ -241,11 +221,9 @@ export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, 
                 detail: undefined
             })));
         }
-
-        this.performLocalElementUpdates();
     }
 
-    private performLocalElementUpdates(functionName = this._functionName, params = this._params) {
+    private performElementInit(functionName = this._functionName, params = this._params) {
         if (this._waitFunction[functionName]) {
             return;
         }
@@ -253,35 +231,19 @@ export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, 
         this._waitFunction[functionName] = true;
 
         $(document).ready(() => {
+            // console.log(functionName, params, this._el.nativeElement);
             this._waitFunction[functionName] = false;
 
             if (functionName) {
                 const jQueryElement = $(this._el.nativeElement);
-                if (jQueryElement[functionName]) {
-                    if (params) {
-                        if (params instanceof Array) {
-                            jQueryElement[functionName](...params);
-                        } else {
-                            throw new Error("Params has to be an array.");
-                        }
+                if (!!M[functionName] && !!M[functionName].init) {
+                    if (params && params instanceof Array && params.length > 0) {
+                        this.instance = M[functionName].init(this._el.nativeElement, ...params);
                     } else {
-                        jQueryElement[functionName]();
+                        this.instance = M[functionName].init(this._el.nativeElement);
                     }
                 } else {
-                    // fallback to running this function on the global Materialize object
-                    if (M[functionName]) {
-                        if (params) {
-                            if (params instanceof Array) {
-                                M[functionName](...params);
-                            } else {
-                                throw new Error("Params has to be an array.");
-                            }
-                        } else {
-                            M[functionName]();
-                        }
-                    } else {
-                        throw new Error("Couldn't find materialize function ''" + functionName + "' on element or the global Materialize object.");
-                    }
+                    throw new Error("Couldn't find materialize function ''" + functionName + "' on element or the global Materialize object.");
                 }
 
                 if (!this.initialized) {
@@ -294,39 +256,39 @@ export class MaterializeDirective implements AfterViewInit, DoCheck, OnChanges, 
         });
     }
 
+    private getInstance() {
+        const elem = this._el.nativeElement;
+        if (!!this._functionName && !!M[this._functionName] && !!M[this._functionName].getInstance)
+            return M[this._functionName].getInstance(elem);
+        return null;
+    }
+
     private isTooltip() {
-        return (this._functionName && this._functionName === "tooltip");
+        return (this._functionName && this._functionName === "Tooltip");
     }
 
     private isSelect() {
-        return (this._functionName && this._functionName === "material_select");
+        return (this._functionName && this._functionName === "FormSelect");
     }
 
     private isDatePicker() {
-        return (this._functionName && this._functionName === "pickadate");
+        return (this._functionName && this._functionName === "Datepicker");
     }
 
     private isTimePicker() {
-        return (this._functionName && this._functionName === "pickatime");
+        return (this._functionName && this._functionName === "Timepicker");
     }
 
     private isChips() {
-        return (this._functionName && this._functionName === "material_chip");
+        return (this._functionName && this._functionName === "Chips");
     }
 
     private isAutocomplete() {
-        return (this._functionName && this._functionName === "autocomplete");
+        return (this._functionName && this._functionName === "Autocomplete");
     }
 
     private isTextarea() {
         return this._el.nativeElement.nodeName == "TEXTAREA";
     }
 
-    private enableDPButtons() {
-        $('.picker__clear').removeAttr("disabled");
-        $('.picker__today').removeAttr("disabled");
-        $('.picker__close').removeAttr("disabled");
-        $('.picker__select--year').removeAttr("disabled");
-        $('.picker__select--month').removeAttr("disabled");
-    }
 }

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import {MaterializeAction} from "angular2-materialize"
+import { MaterializeAction } from "@samuelberthe/angular2-materialize"
 
-declare var M:any;
+declare var M: any;
 
 @Component({
   selector: 'app-buttons',
@@ -13,7 +13,7 @@ export class ButtonsComponent implements OnInit {
 
   tapTargetActions = new EventEmitter<MaterializeAction>();
 
-  constructor(private router:Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -28,9 +28,10 @@ export class ButtonsComponent implements OnInit {
   }
 
   openTapTarget() {
-    this.tapTargetActions.emit({action:"tapTarget",params:["open"]});
+    this.tapTargetActions.emit({ action: "open", params: [] });
+    // this.tapTargetActions.emit({action:"next", params:[]});
   }
   closeTapTarget() {
-    this.tapTargetActions.emit({action:"tapTarget",params:["close"]});
+    this.tapTargetActions.emit({ action: "close", params: [] });
   }
 }

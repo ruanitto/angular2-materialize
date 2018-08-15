@@ -1,14 +1,14 @@
-import {MaterializeDirective} from "angular2-materialize";
-import {Component} from "@angular/core"
+import { MaterializeDirective } from "@samuelberthe/angular2-materialize";
+import { Component } from "@angular/core"
 
 @Component({
-    selector: "tabs",
-    template: `
+  selector: "tabs",
+  template: `
     <div class="row">
       <div class="col s12">
-        <ul class="tabs" materialize="tabs">
-          <li class="tab col s3"><a href="#test1">Test 1</a></li>
-          <li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
+<ul class="tabs" materialize="Tabs">
+<li class="tab col s3"><a href="#test1">Test 1</a></li>
+<li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
           <li class="tab col s3 disabled"><a href="#test3">Disabled Tab</a></li>
           <li class="tab col s3"><a href="#test4">Test 4</a></li>
         </ul>
