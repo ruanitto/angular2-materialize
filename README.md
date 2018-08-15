@@ -2,7 +2,7 @@
 
 **This repo is a fork from [InfomediaLtd/angular2-materialize](https://github.com/InfomediaLtd/angular2-materialize) that is not maintained on a regular basis.**
 
-**Full compatible with Angular 6 and MaterializeCss 1.0.0-rc.2**
+**Fully compatible with Angular 6 and MaterializeCss 1.0.0-rc.2**
 
 [![travis build](https://img.shields.io/travis/samber/angular2-materialize.svg?style=flat-square)](https://travis-ci.org/samber/angular2-materialize)
 [![version](https://img.shields.io/npm/v/@samuelberthe/angular2-materialize.svg?style=flat-square)](https://www.npmjs.com/package/@samuelberthe/angular2-materialize)
