@@ -121,6 +121,28 @@ For dynamic select elements apply the **materializeSelectOptions** directive to 
 </select>
 ```
 
+## Upgrading from angular2-materialize@15.x.x
+
+New api for `materializeActions` EventEmitter ("methods" in the new MaterializeCSS vocabulary). Example with modals:
+
+```
+<div materialize="modal" [materializeParams]="[{dismissible: true, opacity: 0.7}]" [materializeActions]="this.modal">
+    ...
+</div>
+```
+
+```
+this.modal.emit({ action: "open", params: [] });
+```
+
+instead of
+
+```
+this.modal.emit({ action: "modal", params: ['open'] });
+```
+
+Also a lot of breaking changes in component HTML and CSS (and sometimes js attributes). Please refer to official MaterializeCSS doc.
+
 ## Installing & configuring @samuelberthe/angular2-materialize in projects created with the Angular CLI
 
 Install MaterializeCSS and @samuelberthe/angular2-materialize from npm
